@@ -1,17 +1,30 @@
-
-
 [
+  {
+    "title": "Aaj Ki Raat",
+    "file": "https://storage.googleapis.com/my-mp3-storage/NEW%20SONG/Aaj%20Ki%20Raat.mp3",
+    "cover": "https://storage.googleapis.com/my-mp3-storage/NEW%20SONG/Aaj-Ki-Raat.jpg"
+  },
+  {
+    "title": "Amplifier",
+    "file": "https://storage.googleapis.com/my-mp3-storage/NEW%20SONG/Amplifier.jpg",
+    "cover": "https://storage.googleapis.com/my-mp3-storage/NEW%20SONG/Amplifier.mp3"
+  },
   {
     "title": "Awari Song",
     "file": "https://storage.googleapis.com/my-mp3-storage/Awari%20Song.mp3",
     "cover": "https://storage.googleapis.com/my-mp3-storage/Awari.png"
   },
   {
+    "title": "Banjaara",
+    "file": "https://storage.googleapis.com/my-mp3-storage/NEW%20SONG/Banjaara.jpg",
+    "cover": "https://storage.googleapis.com/my-mp3-storage/NEW%20SONG/Banjaara.mp3"
+  },
+  {
     "title": "Below The Surface",
     "file": "https://storage.googleapis.com/my-mp3-storage/%5BC4D%5D%20Below%20the%20Surface%20-%20(FULL%20ANIMATION)%20Song%20by%20%40Griffinilla.mp3",
     "cover": "https://storage.googleapis.com/my-mp3-storage/Below%20the%20Surface.jpg"
   },
-    {
+  {
     "title": "Bheegi Bheegi",
     "file": "https://storage.googleapis.com/my-mp3-storage/Bheegi%20Bheegi.mp3",
     "cover": "https://storage.googleapis.com/my-mp3-storage/Bheegi%20Bheegi.png"
@@ -22,9 +35,49 @@
     "cover": "https://storage.googleapis.com/my-mp3-storage/Chale%20Jaana%20Phir.png"
   },
   {
+    "title": "Deep End",
+    "file": "https://storage.googleapis.com/my-mp3-storage/NEW%20SONG/Deep%20End.mp3",
+    "cover": "https://storage.googleapis.com/my-mp3-storage/NEW%20SONG/Deep-End.jpg"
+  },
+  {
+    "title": "Dusk till dawn",
+    "file": "https://storage.googleapis.com/my-mp3-storage/NEW%20SONG/Dusk%20till%20dawn.mp3",
+    "cover": "https://storage.googleapis.com/my-mp3-storage/NEW%20SONG/Dusk-Till-Dawn.jpg"
+  },
+  {
+    "title": "Ek Raat",
+    "file": "https://storage.googleapis.com/my-mp3-storage/NEW%20SONG/Ek%20Raat.mp3",
+    "cover": "https://storage.googleapis.com/my-mp3-storage/NEW%20SONG/Ek-Raat.jpg"
+  },
+  {
     "title": "Fallin for you",
     "file": "https://storage.googleapis.com/my-mp3-storage/Fallin%20for%20you.mp3",
     "cover": "https://storage.googleapis.com/my-mp3-storage/Fallin%20for%20you.png"
+  },
+  {
+    "title": "Finding Her",
+    "file": "https://storage.googleapis.com/my-mp3-storage/NEW%20SONG/Finding%20Her.mp3",
+    "cover": "https://storage.googleapis.com/my-mp3-storage/NEW%20SONG/Finding-Her.jpg"
+  },
+  {
+    "title": "Gale Lag Ja",
+    "file": "https://storage.googleapis.com/my-mp3-storage/NEW%20SONG/Gale%20Lag%20Ja.mp3",
+    "cover": "https://storage.googleapis.com/my-mp3-storage/NEW%20SONG/Gale%20lag%20ja.jpg"
+  },
+  {
+    "title": "Hai Dil Ye Mera",
+    "file": "https://storage.googleapis.com/my-mp3-storage/NEW%20SONG/Hai%20Dil%20Ye%20Mera.mp3",
+    "cover": "https://storage.googleapis.com/my-mp3-storage/NEW%20SONG/Hai%20Dil%20Ye%20Mera.jpg"
+  },
+  {
+    "title": "HASEEN",
+    "file": "https://storage.googleapis.com/my-mp3-storage/NEW%20SONG/HASEEN.mp3",
+    "cover": "https://storage.googleapis.com/my-mp3-storage/NEW%20SONG/Haseen.jpg"
+  },
+  {
+    "title": "Hasti Rahe Tu",
+    "file": "https://storage.googleapis.com/my-mp3-storage/NEW%20SONG/Hasti%20Rahe%20Tu.mp3",
+    "cover": "https://storage.googleapis.com/my-mp3-storage/NEW%20SONG/Hasti-Rahe-Tu.jpg"
   },
   {
     "title": "Indila - Love Story",
@@ -37,6 +90,11 @@
     "cover": "https://storage.googleapis.com/my-mp3-storage/ISHQ%20MUBARAK.png"
   },
   {
+    "title": "Ishq Wala Love",
+    "file": "https://storage.googleapis.com/my-mp3-storage/NEW%20SONG/Ishq%20Wala%20Love.mp3",
+    "cover": "https://storage.googleapis.com/my-mp3-storage/NEW%20SONG/ishq%20wala%20love.jpg"
+  },
+  {
     "title": "janam janam",
     "file": "https://storage.googleapis.com/my-mp3-storage/janam%20janam.mp3",
     "cover": "https://storage.googleapis.com/my-mp3-storage/janam%20janam.png"
@@ -47,9 +105,94 @@
     "cover": "https://storage.googleapis.com/my-mp3-storage/Jee%20Le%20Zaraa.png"
   },
   {
+    "title": "Jhol",
+    "file": "https://storage.googleapis.com/my-mp3-storage/NEW%20SONG/Jhol.mp3",
+    "cover": "https://storage.googleapis.com/my-mp3-storage/NEW%20SONG/Jhol.jpg"
+  },
+  {
+    "title": "Jo Tu Na Mila",
+    "file": "https://storage.googleapis.com/my-mp3-storage/NEW%20SONG/Jo%20Tu%20Na%20Mila.mp3",
+    "cover": "https://storage.googleapis.com/my-mp3-storage/NEW%20SONG/jo%20tu%20na%20mila.jpg"
+  },
+  {
+    "title": "Kabhi Na Kabhi",
+    "file": "https://storage.googleapis.com/my-mp3-storage/NEW%20SONG/Kabhi%20Na%20Kabhi.mp3",
+    "cover": "https://storage.googleapis.com/my-mp3-storage/NEW%20SONG/kabhi%20na%20kabhi.jpg"
+  },
+  {
+    "title": "KAUN TUJHE",
+    "file": "https://storage.googleapis.com/my-mp3-storage/NEW%20SONG/KAUN%20TUJHE.mp3",
+    "cover": "https://storage.googleapis.com/my-mp3-storage/NEW%20SONG/kaun%20tujhe.jpg"
+  },
+  {
+    "title": "Khamoshiyan",
+    "file": "https://storage.googleapis.com/my-mp3-storage/NEW%20SONG/Khamoshiyan.mp3",
+    "cover": "https://storage.googleapis.com/my-mp3-storage/NEW%20SONG/Khamoshiyan.jpg"
+  },
+  {
     "title": "Khud Ko Tere Paas",
     "file": "https://storage.googleapis.com/my-mp3-storage/Khud%20Ko%20Tere%20Paas.mp3",
     "cover": "https://storage.googleapis.com/my-mp3-storage/Khud%20Ko%20Tere%20Paas.png"
+  },
+  {
+    "title": "Khuda Aur Mohabbat",
+    "file": "https://storage.googleapis.com/my-mp3-storage/NEW%20SONG/Khuda%20Aur%20Mohabbat.mp3",
+    "cover": "https://storage.googleapis.com/my-mp3-storage/NEW%20SONG/Khuda-Aur-Mohabbat.jpg"
+  },
+  {
+    "title": "Lo Maan Liya Humne",
+    "file": "https://storage.googleapis.com/my-mp3-storage/NEW%20SONG/Lo%20Maan%20Liya%20Humne.mp3",
+    "cover": "https://storage.googleapis.com/my-mp3-storage/NEW%20SONG/Lo%20maan%20Liya.jpg"
+  },
+  {
+    "title": "MAAHI VE",
+    "file": "https://storage.googleapis.com/my-mp3-storage/NEW%20SONG/MAAHI%20VE.mp3",
+    "cover": "https://storage.googleapis.com/my-mp3-storage/NEW%20SONG/maahi%20ve.jpg"
+  },
+  {
+    "title": "Maand",
+    "file": "https://storage.googleapis.com/my-mp3-storage/NEW%20SONG/Maand.mp3",
+    "cover": "https://storage.googleapis.com/my-mp3-storage/NEW%20SONG/Maand.jpg"
+  },
+  {
+    "title": "Mann Mera",
+    "file": "https://storage.googleapis.com/my-mp3-storage/NEW%20SONG/Mann%20Mera.mp3",
+    "cover": "https://storage.googleapis.com/my-mp3-storage/NEW%20SONG/mann%20mera.jpg"
+  },
+  {
+    "title": "Maula Mere Maula",
+    "file": "https://storage.googleapis.com/my-mp3-storage/NEW%20SONG/Maula%20Mere%20Maula.mp3",
+    "cover": "https://storage.googleapis.com/my-mp3-storage/NEW%20SONG/Maula-Mere-Maula.jpg"
+  },
+  {
+    "title": "Mere Rashke Qamar",
+    "file": "https://storage.googleapis.com/my-mp3-storage/NEW%20SONG/Mere%20Rashke%20Qamar.mp3",
+    "cover": "https://storage.googleapis.com/my-mp3-storage/NEW%20SONG/mera%20reskhe%20qamar.png"
+  },
+  {
+    "title": "Milne Hai Mujhse Aayi",
+    "file": "https://storage.googleapis.com/my-mp3-storage/NEW%20SONG/Milne%20Hai%20Mujhse%20Aayi%2C%20.mp3",
+    "cover": "https://storage.googleapis.com/my-mp3-storage/NEW%20SONG/milne%20hai%20mujhse%20aayi.jpg"
+  },
+  {
+    "title": "O Re Piya",
+    "file": "https://storage.googleapis.com/my-mp3-storage/NEW%20SONG/O%20Re%20Piya.mp3",
+    "cover": "https://storage.googleapis.com/my-mp3-storage/NEW%20SONG/O%20re%20piya.jpg"
+  },
+  {
+    "title": "PAL PAL afusic",
+    "file": "https://storage.googleapis.com/my-mp3-storage/NEW%20SONG/PAL%20PAL%20afusic.mp3",
+    "cover": "https://storage.googleapis.com/my-mp3-storage/NEW%20SONG/pal%20pal%20afusic.jpg"
+  },
+  {
+    "title": "Pal Pal dil ke pass",
+    "file": "https://storage.googleapis.com/my-mp3-storage/NEW%20SONG/Pal%20Pal%20dil%20ke%20pass.mp3",
+    "cover": "https://storage.googleapis.com/my-mp3-storage/NEW%20SONG/Pal-Pal-Dil-Ke-Paas.jpg"
+  },
+  {
+    "title": "Paro",
+    "file": "https://storage.googleapis.com/my-mp3-storage/NEW%20SONG/Paro.mp3",
+    "cover": "https://storage.googleapis.com/my-mp3-storage/NEW%20SONG/Paro.jpg"
   },
   {
     "title": "Piya Aaye Na",
@@ -57,9 +200,44 @@
     "cover": "https://storage.googleapis.com/my-mp3-storage/Piya%20Aaye%20Na.png"
   },
   {
+    "title": "Piya Ghar Aavenge",
+    "file": "https://storage.googleapis.com/my-mp3-storage/NEW%20SONG/Piya%20Ghar%20Aavenge.mp3",
+    "cover": "https://storage.googleapis.com/my-mp3-storage/NEW%20SONG/piya%20ghar.jpg"
+  },
+  {
+    "title": "Pyar Tune Kya kiya",
+    "file": "https://storage.googleapis.com/my-mp3-storage/NEW%20SONG/Pyar%20Tune%20Kya%20kiya.mp3",
+    "cover": "https://storage.googleapis.com/my-mp3-storage/NEW%20SONG/Pyaar-Tune-Kya-Kiya.jpg"
+  },
+  {
+    "title": "Sabse Pehle Hai Pyar (Lofi)",
+    "file": "https://storage.googleapis.com/my-mp3-storage/NEW%20SONG/Sabse%20Pehle%20Hai%20Pyar%20(Lofi).mp3",
+    "cover": "https://storage.googleapis.com/my-mp3-storage/NEW%20SONG/Sabse-Pehle-Hai-Pyar.jpg"
+  },
+  {
+    "title": "Sanson Ki Mala (Slowed + Reverb)",
+    "file": "https://storage.googleapis.com/my-mp3-storage/NEW%20SONG/Sanson%20Ki%20Mala%20(Slowed%20%2B%20Reverb).mp3",
+    "cover": "https://storage.googleapis.com/my-mp3-storage/NEW%20SONG/Sanson-Ki-Mala.jpg"
+  },
+  {
     "title": "Sun saathiya",
     "file": "https://storage.googleapis.com/my-mp3-storage/Sun%20saathiya.mp3",
     "cover": "https://storage.googleapis.com/my-mp3-storage/Sun%20saathiya.png"
+  },
+  {
+    "title": "Sunn Raha Hai Na Tu",
+    "file": "https://storage.googleapis.com/my-mp3-storage/NEW%20SONG/Sunn%20Raha%20Hai%20Na%20Tu.mp3",
+    "cover": "https://storage.googleapis.com/my-mp3-storage/NEW%20SONG/Sunn%20Raha%20Hai%20Na%20Tu.jpg"
+  },
+  {
+    "title": "Tera Mera Rishta",
+    "file": "https://storage.googleapis.com/my-mp3-storage/NEW%20SONG/Tera%20Mera%20Rishta.mp3",
+    "cover": "https://storage.googleapis.com/my-mp3-storage/NEW%20SONG/Tera%20Mera%20Rishta.jpg"
+  },
+  {
+    "title": "Tera naam Dil",
+    "file": "https://storage.googleapis.com/my-mp3-storage/NEW%20SONG/Tera%20naam%20Dil.mp3",
+    "cover": "https://storage.googleapis.com/my-mp3-storage/NEW%20SONG/Tera%20Naam%20Dil.jpg"
   },
   {
     "title": "Teri Deewani",
@@ -72,13 +250,48 @@
     "cover": "https://storage.googleapis.com/my-mp3-storage/Teri%20Meri%20Kahaani.png"
   },
   {
+    "title": "Toota Jo Kabhi Tara",
+    "file": "https://storage.googleapis.com/my-mp3-storage/NEW%20SONG/Toota%20Jo%20Kabhi%20Tara.mp3",
+    "cover": "https://storage.googleapis.com/my-mp3-storage/NEW%20SONG/toota%20jo%20kabhi%20tara.jpg"
+  },
+  {
+    "title": "Tu Jo Hain",
+    "file": "https://storage.googleapis.com/my-mp3-storage/NEW%20SONG/Tu%20Jo%20Hain.mp3",
+    "cover": "https://storage.googleapis.com/my-mp3-storage/NEW%20SONG/Tu%20jo%20hai.jpg"
+  },
+  {
     "title": "TU JUNOONIYAT",
     "file": "https://storage.googleapis.com/my-mp3-storage/TU%20JUNOONIYAT.mp3",
     "cover": "https://storage.googleapis.com/my-mp3-storage/TU%20JUNOONIYAT.png"
   },
   {
+    "title": "Tujhe Sochta Hoon",
+    "file": "https://storage.googleapis.com/my-mp3-storage/NEW%20SONG/Tujhe%20Sochta%20Hoon.mp3",
+    "cover": "https://storage.googleapis.com/my-mp3-storage/NEW%20SONG/Tujhe%20Sochta%20Hoon.jpg"
+  },
+  {
+    "title": "Tum Ho Mera Pyar",
+    "file": "https://storage.googleapis.com/my-mp3-storage/NEW%20SONG/Tum%20Ho%20Mera%20Pyar.mp3",
+    "cover": "https://storage.googleapis.com/my-mp3-storage/NEW%20SONG/tum%20ho%20mera%20pyar.jpg"
+  },
+  {
+    "title": "Tum Todo Na",
+    "file": "https://storage.googleapis.com/my-mp3-storage/NEW%20SONG/Tum%20Todo%20Na.mp3",
+    "cover": "https://storage.googleapis.com/my-mp3-storage/NEW%20SONG/Tum%20toda%20na.jpg"
+  },
+  {
+    "title": "Uska Hi Banana",
+    "file": "https://storage.googleapis.com/my-mp3-storage/NEW%20SONG/Uska%20Hi%20Banana.mp3",
+    "cover": "https://storage.googleapis.com/my-mp3-storage/NEW%20SONG/uska%20hi%20banna.jpg"
+  },
+  {
     "title": "Zara Zara Bahekta Hai",
     "file": "https://storage.googleapis.com/my-mp3-storage/Zara%20Zara%20Bahekta%20Hai.mp3",
     "cover": "https://storage.googleapis.com/my-mp3-storage/Zara%20Zara%20Bahekta%20Hai.png"
+  },
+  {
+    "title": "Zaroorat",
+    "file": "https://storage.googleapis.com/my-mp3-storage/NEW%20SONG/Zaroorat.mp3",
+    "cover": "https://storage.googleapis.com/my-mp3-storage/NEW%20SONG/Zaroorat.jpg"
   }
 ]
