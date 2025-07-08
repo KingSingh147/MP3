@@ -313,7 +313,7 @@
 </head>
 <body>
   <!-- Navbar -->
-  <nav class="navbar navbar-dark justify-content-between px-3 glass-header">
+  <nav class="navbar navbar-dark justify-content-between shadow-lg px-3 glass-header">
     <div class="d-flex align-items-center">
       <button class="btn text-white me-2" id="menuToggle">
         <i class="fas fa-bars"></i>
@@ -425,15 +425,18 @@
       sideMenu.classList.remove("active");
       menuOverlay.classList.remove("active");
     });
-    showList.addEventListener("click", () => {
+   showList.addEventListener("click", () => {
   sideMenu.classList.remove("active");
   menuOverlay.classList.remove("active");
-  listContainer.classList.remove("hidden");
+  document.getElementById('searchOverlay').classList.remove('hidden');
+  listContainer.classList.remove('hidden');
   document.querySelector('.cover-container').style.display = 'none';
   document.getElementById('currentTitle').style.display = 'none';
   document.querySelector('.lyrics-display').style.display = 'none';
   searchInput.focus();
+  history.pushState({ search: true }, '');
 });
+
 
     searchToggle.addEventListener('click', () => {
   listContainer.classList.toggle('hidden');
@@ -443,22 +446,6 @@
   document.querySelector('.lyrics-display').style.display = isActive ? 'none' : 'block';
   if (isActive) searchInput.focus();
 });
-
-
-    fetch('./song_metadata.json')
-  .then(res => res.json())
-  .then(data => {
-    songs = data;
-    renderSongs(songs);
-    const saved = JSON.parse(localStorage.getItem('lastPlayed'));
-    if (saved) {
-  playSong(saved.index, saved.seek);
-  sound.pause(); // preload but do not play
-  playPauseBtn.innerHTML = '<i class="fas fa-play"></i>';
-}
-  });
-
-
     function renderSongs(list) {
       songListEl.innerHTML = '';
       list.forEach((song, index) => {
