@@ -670,24 +670,31 @@ currentCover.addEventListener('touchend', e => {
     // When clicking the cover image
 currentCover.addEventListener('click', () => {
   if (currentIndex === -1) {
+    // This is the same as clicking the search icon
+    searchOverlay.classList.remove('hidden');
     listContainer.classList.remove('hidden');
     document.querySelector('.cover-container').style.display = 'none';
     document.getElementById('currentTitle').style.display = 'none';
     document.querySelector('.lyrics-display').style.display = 'none';
     searchInput.focus();
+    history.pushState({ search: true }, '');
   }
 });
+
 
 // When clicking the "Select a song" title
 currentTitle.addEventListener('click', () => {
   if (currentIndex === -1) {
+    searchOverlay.classList.remove('hidden');
     listContainer.classList.remove('hidden');
     document.querySelector('.cover-container').style.display = 'none';
     document.getElementById('currentTitle').style.display = 'none';
     document.querySelector('.lyrics-display').style.display = 'none';
     searchInput.focus();
+    history.pushState({ search: true }, '');
   }
 });
+
 // Swipe gesture on the cover-scroll-container
 const coverScroll = document.getElementById('coverScroll');
 let startX = 0;
