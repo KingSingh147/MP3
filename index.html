@@ -1174,9 +1174,9 @@ if (!localStorage.getItem("hasVisited")) {
         acceleration.z * acceleration.z
       );
 
-      const shakeThreshold = 25; // adjust sensitivity here
+      const shakeThreshold = 30; // adjust sensitivity here
       const now = Date.now();
-      const cooldown = 2000; // 2 seconds
+      const cooldown = 5000; // 2 seconds
 
       if (totalForce > shakeThreshold && now - lastShakeTime > cooldown) {
         lastShakeTime = now;
@@ -1260,7 +1260,13 @@ function updateSeek(e) {
   progress.style.width = `${p * 100}%`;
   if (sound) {
     sound.seek(sound.duration() * p);
-    updateProgress();
+    updateProgress(); // Immediately update the UI
+
+    // NEW: Restart the animation loop so it keeps updating
+    if (sound.playing()) {
+      requestAnimationFrame(updateProgress);
+    }
+
     // Because user interacted, mark as saved so loop doesn't override
     hasSavedSinceLoad = true;
     localStorage.setItem('lastPlayed', JSON.stringify({
@@ -1269,6 +1275,7 @@ function updateSeek(e) {
     }));
   }
 }
+
 
 
 
