@@ -853,68 +853,67 @@
       box-shadow: 0 0 8px rgba(0, 0, 0, 0.3);
     }
 
-    #partnerOverlay > div {
-  background: radial-gradient(circle at center, #180033 0%, #0b0019 100%);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border-radius: 1rem;
-  padding: 2rem;
-  width: 100%;
-  max-width: 500px;
-  color: white;
-  box-shadow: 0 0 20px rgba(226, 3, 255, 0.2),
-              0 0 5px rgba(192, 27, 233, 0.5);
-  border: 1px solid rgba(219, 41, 255, 0.1);
-  animation: fadeInUp 0.5s ease-out;
-}
+    #partnerOverlay>div {
+      background: radial-gradient(circle at center, #180033 0%, #0b0019 100%);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-radius: 1rem;
+      padding: 2rem;
+      width: 100%;
+      max-width: 500px;
+      color: white;
+      box-shadow: 0 0 20px rgba(226, 3, 255, 0.2),
+        0 0 5px rgba(192, 27, 233, 0.5);
+      border: 1px solid rgba(219, 41, 255, 0.1);
+      animation: fadeInUp 0.5s ease-out;
+    }
 
-#partnerOverlay h5 {
-  color: #ffffff;
-  font-size: 1.4rem;
-  margin-bottom: 1.5rem;
-  text-align: center;
-}
+    #partnerOverlay h5 {
+      color: #ffffff;
+      font-size: 1.4rem;
+      margin-bottom: 1.5rem;
+      text-align: center;
+    }
 
-#partnerOverlay label {
-  color: #dddddd;
-  font-weight: 500;
-}
+    #partnerOverlay label {
+      color: #dddddd;
+      font-weight: 500;
+    }
 
-#partnerOverlay input.form-control {
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  color: #ffffff;
-  border-radius: 0.5rem;
-  padding: 0.75rem;
-}
+    #partnerOverlay input.form-control {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      color: #ffffff;
+      border-radius: 0.5rem;
+      padding: 0.75rem;
+    }
 
-#partnerOverlay input.form-control::placeholder {
-  color: #aaa;
-}
+    #partnerOverlay input.form-control::placeholder {
+      color: #aaa;
+    }
 
-#partnerOverlay input.form-control:focus {
-  outline: none;
-  border-color: #8a3fc9;
-  box-shadow: 0 0 5px #8a3fc9;
-}
+    #partnerOverlay input.form-control:focus {
+      outline: none;
+      border-color: #8a3fc9;
+      box-shadow: 0 0 5px #8a3fc9;
+    }
 
-#partnerOverlay button {
-  background: linear-gradient(135deg, #6d2c91, #8a3fc9);
-  color: #ffffff;
-  border: none;
-  border-radius: 0.5rem;
-  padding: 0.75rem;
-  font-weight: bold;
-  margin-top: 0.75rem;
-  box-shadow: 0 4px 12px rgba(201, 31, 243, 0.3);
-  transition: background 0.3s ease, box-shadow 0.3s ease-in;
-}
+    #partnerOverlay button {
+      background: linear-gradient(135deg, #6d2c91, #8a3fc9);
+      color: #ffffff;
+      border: none;
+      border-radius: 0.5rem;
+      padding: 0.75rem;
+      font-weight: bold;
+      margin-top: 0.75rem;
+      box-shadow: 0 4px 12px rgba(201, 31, 243, 0.3);
+      transition: background 0.3s ease, box-shadow 0.3s ease-in;
+    }
 
-#partnerOverlay button:hover {
-  background: linear-gradient(135deg, #6d2c91, #8a3fc9);
-  box-shadow: 0 0 10px #8a3fc9, 0 0 20px #8a3fc9;
-}
-
+    #partnerOverlay button:hover {
+      background: linear-gradient(135deg, #6d2c91, #8a3fc9);
+      box-shadow: 0 0 10px #8a3fc9, 0 0 20px #8a3fc9;
+    }
   </style>
 </head>
 
@@ -1265,7 +1264,7 @@
         }
       });
 
-       sound.play();
+      sound.play();
       isPlaying = true;
       currentTitle.textContent = songs[index].title;
       currentCover.src = songs[index].cover;
@@ -1273,7 +1272,7 @@
 
       // Save only the index
       localStorage.setItem('lastPlayed', JSON.stringify({ index: currentIndex }));
-    
+
 
       if ('mediaSession' in navigator) {
         navigator.mediaSession.metadata = new MediaMetadata({
@@ -1298,7 +1297,28 @@
           isPlaying = false;
           playPauseBtn.innerHTML = '<i class="fas fa-play"></i>';
         });
+
+        navigator.mediaSession.setActionHandler('previoustrack', () => {
+          if (shuffle) {
+            shufflePosition = (shufflePosition - 1 + shuffleOrder.length) % shuffleOrder.length;
+            playSong(shuffleOrder[shufflePosition]);
+          } else {
+            const prevIndex = (currentIndex - 1 + songs.length) % songs.length;
+            playSong(prevIndex);
+          }
+        });
+
+        navigator.mediaSession.setActionHandler('nexttrack', () => {
+          if (shuffle) {
+            shufflePosition = (shufflePosition + 1) % shuffleOrder.length;
+            playSong(shuffleOrder[shufflePosition]);
+          } else {
+            const nextIndex = (currentIndex + 1) % songs.length;
+            playSong(nextIndex);
+          }
+        });
       }
+
     }
 
     function broadcastSync() {
@@ -1748,14 +1768,14 @@
 
     // Mouse down starts drag
     progressContainer.addEventListener('mousedown', e => {
-  if (!sound) return;
-  isDragging = true;
-  wasPlaying = sound.playing(); // Capture whether it was playing
-  if (wasPlaying) {
-    sound.pause();
-  }
-  updateSeek(e);
-});
+      if (!sound) return;
+      isDragging = true;
+      wasPlaying = sound.playing(); // Capture whether it was playing
+      if (wasPlaying) {
+        sound.pause();
+      }
+      updateSeek(e);
+    });
 
 
     // Mouse move updates during drag
@@ -1780,12 +1800,12 @@
 
     // Touch start
     progressContainer.addEventListener('touchstart', e => {
-  if (!sound) return;
-  isDragging = true;
-  wasPlaying = sound.playing();
-  if (wasPlaying) sound.pause();
-  updateSeek(e.touches[0]);
-});
+      if (!sound) return;
+      isDragging = true;
+      wasPlaying = sound.playing();
+      if (wasPlaying) sound.pause();
+      updateSeek(e.touches[0]);
+    });
 
 
     // Touch move
@@ -1923,11 +1943,11 @@
 
     // Start session and register room
     function startSyncSession() {
-  const myCode = Math.random().toString(36).substring(2, 7).toUpperCase();
-  document.getElementById("myRoomCode").textContent = myCode;
+      const myCode = Math.random().toString(36).substring(2, 7).toUpperCase();
+      document.getElementById("myRoomCode").textContent = myCode;
 
-  // Show the loading overlay BEFORE connecting
-  document.getElementById("syncLoadingOverlay").classList.remove("hidden");
+      // Show the loading overlay BEFORE connecting
+      document.getElementById("syncLoadingOverlay").classList.remove("hidden");
 
       socket = new WebSocket("wss://mp3-sync-server.onrender.com");
 
@@ -1939,12 +1959,12 @@
         document.getElementById("partnerConnectedBadge").classList.add("hidden");
         // Ensure loading overlay hidden if closed
         document.getElementById("syncLoadingOverlay").classList.add("hidden");
-       // Toastify({
-            //text: "Error connecting to server Try again later.",
-           // duration: 4000,
-           // gravity: "bottom",
-           // backgroundColor: "#FF514F"
-          //}).showToast();
+        // Toastify({
+        //text: "Error connecting to server Try again later.",
+        // duration: 4000,
+        // gravity: "bottom",
+        // backgroundColor: "#FF514F"
+        //}).showToast();
       });
 
 
@@ -2001,7 +2021,7 @@
         if (msg.action === "peer_disconnected") {
           console.log("🔔 Partner disconnected.");
           isSyncing = false;
-          
+
 
           // Hide badge
           document.getElementById("partnerConnectedBadge").classList.add("hidden");
@@ -2020,41 +2040,41 @@
         }
 
 
-if (msg.action === "play") {
-  const { songIndex, seek, isPlaying: shouldPlay } = msg.payload;
+        if (msg.action === "play") {
+          const { songIndex, seek, isPlaying: shouldPlay } = msg.payload;
 
-  console.log("📨 Message received: play", msg.payload);
+          console.log("📨 Message received: play", msg.payload);
 
-  if (currentIndex !== songIndex) {
-    // Different song: load it fresh
-    playSong(songIndex, seek, true);
-    if (!shouldPlay) {
-      setTimeout(() => {
-        if (sound) {
-          sound.pause();
-          isPlaying = false;
-          playPauseBtn.innerHTML = '<i class="fas fa-play"></i>';
+          if (currentIndex !== songIndex) {
+            // Different song: load it fresh
+            playSong(songIndex, seek, true);
+            if (!shouldPlay) {
+              setTimeout(() => {
+                if (sound) {
+                  sound.pause();
+                  isPlaying = false;
+                  playPauseBtn.innerHTML = '<i class="fas fa-play"></i>';
+                }
+              }, 500);
+            }
+          } else {
+            // Same song
+            if (sound) {
+              sound.pause();   // Always pause first to ensure stop
+              sound.seek(seek);
+
+              if (shouldPlay) {
+                sound.play();
+                isPlaying = true;
+                playPauseBtn.innerHTML = '<i class="fas fa-pause"></i>';
+                updateProgress();
+              } else {
+                isPlaying = false;
+                playPauseBtn.innerHTML = '<i class="fas fa-play"></i>';
+              }
+            }
+          }
         }
-      }, 500);
-    }
-  } else {
-    // Same song
-    if (sound) {
-      sound.pause();   // Always pause first to ensure stop
-      sound.seek(seek);
-
-      if (shouldPlay) {
-        sound.play();
-        isPlaying = true;
-        playPauseBtn.innerHTML = '<i class="fas fa-pause"></i>';
-        updateProgress();
-      } else {
-        isPlaying = false;
-        playPauseBtn.innerHTML = '<i class="fas fa-play"></i>';
-      }
-    }
-  }
-}
 
 
 
@@ -2115,21 +2135,30 @@ if (msg.action === "play") {
       const closePartnerOverlay = document.getElementById("closePartnerOverlay");
       const partnerConnectedBadge = document.getElementById("partnerConnectedBadge");
       const connectedUserSpan = document.getElementById("connectedUser");
-
+      
       document.getElementById("listenWithPartnerBtn").addEventListener("click", () => {
-  if (isSyncing) {
-    Toastify({
-      text: "You are already connected to a partner.",
-      duration: 3000,
-      gravity: "bottom",
-      position: "center",
-      backgroundColor: "#8A3FC9",
-    }).showToast();
-    return;
-  }
-  startSyncSession();
-});
+        // If already connected, show toast and exit
+        if (isSyncing) {
+          Toastify({
+            text: "You are already connected to a partner.",
+            duration: 3000,
+            gravity: "bottom",
+            position: "center",
+            backgroundColor: "#8A3FC9",
+          }).showToast();
+          return;
+        }
 
+        // Hide side menu and overlay
+        sideMenu.classList.remove("active");
+        menuOverlay.classList.remove("active");
+
+        // Show the LWP overlay
+        partnerOverlay.classList.remove("hidden");
+
+        // Start WebSocket session
+        startSyncSession();
+      });
 
       closePartnerOverlay.addEventListener("click", () => {
         partnerOverlay.classList.add("hidden");
