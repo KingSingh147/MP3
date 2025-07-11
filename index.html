@@ -21,7 +21,7 @@
     }
 
     .hidden {
-      display: none;
+      display: none !important;
     }
 
     .song-item:hover {
@@ -713,29 +713,149 @@
         opacity: 1;
       }
     }
-    #feedbackContainer {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 2rem;
-  min-height: 100vh;
-  background: rgba(0, 0, 0, 0.4); /* soft background */
-  backdrop-filter: blur(20px); /* glass effect */
-  -webkit-backdrop-filter: blur(20px);
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  z-index: 3000;
-}
-.hidden {
-  display: none !important;
-}
 
-#feedbackForm {
-  
+    #feedbackContainer {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 2rem;
+      min-height: 100vh;
+      background: rgba(0, 0, 0, 0.4);
+      /* soft background */
+      backdrop-filter: blur(20px);
+      /* glass effect */
+      -webkit-backdrop-filter: blur(20px);
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 3000;
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+    #feedbackForm {
+
+      background: radial-gradient(circle at center, #180033 0%, #0b0019 100%);
+      backdrop-filter: blur(20px);
+      /* glass effect */
+      -webkit-backdrop-filter: blur(20px);
+      border-radius: 1rem;
+      padding: 2rem;
+      width: 100%;
+      max-width: 500px;
+      color: white;
+      box-shadow: 0 0 20px rgba(226, 3, 255, 0.2),
+        0 0 5px rgba(192, 27, 233, 0.5);
+      border: 1px solid rgba(219, 41, 255, 0.1);
+    }
+
+    #feedbackForm h5 {
+      color: #ffffff;
+      font-size: 1.4rem;
+      margin-bottom: 1.5rem;
+      text-align: center;
+    }
+
+    #feedbackForm .form-label {
+      color: #dddddd;
+      font-weight: 500;
+    }
+
+    #feedbackForm .form-control {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      color: #ffffff;
+      border-radius: 0.5rem;
+      padding: 0.75rem;
+    }
+
+    #feedbackForm .form-control::placeholder {
+      color: #aaa;
+    }
+
+    #feedbackForm .form-control:focus {
+      outline: none;
+      border-color: #8a3fc9;
+      box-shadow: 0 0 5px #8a3fc9;
+    }
+
+    #feedbackForm button[type="submit"] {
+      background: linear-gradient(135deg, #6d2c91, #8a3fc9);
+      color: #ffffff;
+      border: none;
+      border-radius: 0.5rem;
+      padding: 0.75rem;
+      font-weight: bold;
+      margin-top: 1rem;
+      box-shadow: 0 4px 12px rgba(201, 31, 243, 0.3);
+      transition: background 0.3s ease;
+      transition: box-shadow 0.3s ease-in;
+    }
+
+    #feedbackForm button[type="submit"]:hover {
+      background: linear-gradient(135deg, #6d2c91, #8a3fc9);
+      box-shadow: 0 0 10px #8a3fc9, 0 0 20px #8a3fc9;
+      transition: box-shadow 0.3s ease-in;
+    }
+
+    @keyframes fadeInUp {
+      0% {
+        opacity: 0;
+        transform: translateY(40px);
+      }
+
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    #feedbackForm {
+      animation: fadeInUp 0.5s ease-out;
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+    #partnerOverlay,
+    #syncRequestPrompt {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.85);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+    }
+
+    #partnerOverlay {
+      background: rgba(0, 0, 0, 0.9);
+      z-index: 99999;
+    }
+
+    .floating-badge {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: rgba(138, 63, 201, 0.8);
+      color: white;
+      padding: 8px 14px;
+      border-radius: 20px;
+      font-weight: bold;
+      z-index: 9999;
+      box-shadow: 0 0 8px rgba(0, 0, 0, 0.3);
+    }
+
+    #partnerOverlay > div {
   background: radial-gradient(circle at center, #180033 0%, #0b0019 100%);
-  backdrop-filter: blur(20px); /* glass effect */
+  backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
   border-radius: 1rem;
   padding: 2rem;
@@ -745,21 +865,22 @@
   box-shadow: 0 0 20px rgba(226, 3, 255, 0.2),
               0 0 5px rgba(192, 27, 233, 0.5);
   border: 1px solid rgba(219, 41, 255, 0.1);
+  animation: fadeInUp 0.5s ease-out;
 }
 
-#feedbackForm h5 {
+#partnerOverlay h5 {
   color: #ffffff;
   font-size: 1.4rem;
   margin-bottom: 1.5rem;
   text-align: center;
 }
 
-#feedbackForm .form-label {
+#partnerOverlay label {
   color: #dddddd;
   font-weight: 500;
 }
 
-#feedbackForm .form-control {
+#partnerOverlay input.form-control {
   background: rgba(255, 255, 255, 0.05);
   border: 1px solid rgba(255, 255, 255, 0.1);
   color: #ffffff;
@@ -767,47 +888,31 @@
   padding: 0.75rem;
 }
 
-#feedbackForm .form-control::placeholder {
+#partnerOverlay input.form-control::placeholder {
   color: #aaa;
 }
 
-#feedbackForm .form-control:focus {
+#partnerOverlay input.form-control:focus {
   outline: none;
   border-color: #8a3fc9;
   box-shadow: 0 0 5px #8a3fc9;
 }
 
-#feedbackForm button[type="submit"] {
-  background: linear-gradient(135deg,#6d2c91 , #8a3fc9);
+#partnerOverlay button {
+  background: linear-gradient(135deg, #6d2c91, #8a3fc9);
   color: #ffffff;
   border: none;
   border-radius: 0.5rem;
   padding: 0.75rem;
   font-weight: bold;
-  margin-top: 1rem;
+  margin-top: 0.75rem;
   box-shadow: 0 4px 12px rgba(201, 31, 243, 0.3);
-  transition: background 0.3s ease;
-  transition: box-shadow 0.3s ease-in;
+  transition: background 0.3s ease, box-shadow 0.3s ease-in;
 }
 
-#feedbackForm button[type="submit"]:hover {
+#partnerOverlay button:hover {
   background: linear-gradient(135deg, #6d2c91, #8a3fc9);
   box-shadow: 0 0 10px #8a3fc9, 0 0 20px #8a3fc9;
-  transition: box-shadow 0.3s ease-in;
-}
-@keyframes fadeInUp {
-  0% {
-    opacity: 0;
-    transform: translateY(40px);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-#feedbackForm {
-  animation: fadeInUp 0.5s ease-out;
 }
 
   </style>
@@ -853,8 +958,44 @@
       </div>
     </div>
   </div>
+  <div id="syncLoadingOverlay" class="hidden" style="
+  position: fixed;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  background: rgba(0,0,0,0.9);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  flex-direction: column;
+">
+    <div class="play-spinner" style="margin-bottom: 1rem;">
+      <div class="r1"></div>
+      <div class="r2"></div>
+      <div class="r3"></div>
+      <div class="r4"></div>
+      <div class="r5"></div>
+    </div>
+    <div style="color:white;font-size:1.1rem;">Connecting to partner server...</div>
+  </div>
 
-
+  <div id="partnerOverlay" class="hidden">
+    <div class="p-4 bg-dark text-white rounded" style="max-width: 400px; margin: auto;">
+      <h5 class="mb-3">Listen with Partner</h5>
+      <div class="mb-3">
+        <label>Your Room Code:</label>
+        <div id="myRoomCode" class="fw-bold text-info">---</div>
+      </div>
+      <div class="mb-3">
+        <label>Enter Partner's Room Code:</label>
+        <input id="partnerRoomInput" class="form-control" placeholder="e.g. ABCDE" />
+      </div>
+      <button id="connectPartnerBtn" class="btn btn-primary w-100">Connect</button>
+      <button id="closePartnerOverlay" class="btn btn-secondary w-100 mt-2">Cancel</button>
+    </div>
+  </div>
 
   <!-- Navbar -->
   <nav class="navbar navbar-dark justify-content-between shadow-lg px-3 glass-header">
@@ -895,26 +1036,38 @@
           <i class="fas fa-comment-dots me-2"></i> Feedback
         </button>
       </li>
+      <li>
+        <button id="listenWithPartnerBtn" class="btn text-white w-100 text-start">
+          <i class="fas fa-users me-2"></i> Listen with Partner
+        </button>
+      </li>
     </ul>
   </div>
   <div id="menuOverlay" class="menu-overlay"></div>
 
   <!-- Main Container -->
-<div class="container my-4">
-  <div id="searchOverlay" class="search-overlay hidden">
-    
-    <!-- Search List Container -->
-    <div id="listContainer" class="hidden">
-      <div class="input-group mb-2">
-        <input type="text" id="searchInput" class="form-control" placeholder="Search songs..." />
-        <button class="btn btn-secondary" id="clearSearch" type="button">
-          <i class="fas fa-times"></i>
-        </button>
-      </div>
-      <ul class="list-group" id="songList"></ul>
+  <div class="container my-4">
+
+    <!-- Connected Floating Badge -->
+    <div id="partnerConnectedBadge" class="floating-badge hidden">
+      Connected to <span id="connectedUser">partner</span>
+      <button id="disconnectBtn" class="btn btn-sm btn-danger ms-2">Disconnect</button>
     </div>
-  </div>
-  <!-- Feedback Form Container -->
+
+    <div id="searchOverlay" class="search-overlay hidden">
+
+      <!-- Search List Container -->
+      <div id="listContainer" class="hidden">
+        <div class="input-group mb-2">
+          <input type="text" id="searchInput" class="form-control" placeholder="Search songs..." />
+          <button class="btn btn-secondary" id="clearSearch" type="button">
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
+        <ul class="list-group" id="songList"></ul>
+      </div>
+    </div>
+    <!-- Feedback Form Container -->
     <div id="feedbackContainer" class="hidden">
       <form id="feedbackForm" class="p-3 text-dark bg-light rounded" style="max-width:500px;margin:auto;">
         <h5 class="mb-3">Send us your Feedback</h5>
@@ -930,20 +1083,21 @@
       </form>
     </div>
 
-  <!-- Covers & Main Player -->
-  <div class="cover-container">
-    <img id="prevCover" loading="lazy" class="cover-img side-cover d-none" />
-    <img id="currentCover" loading="lazy" src="https://storage.googleapis.com/my-mp3-storage/cover.png"
-      alt="Cover" class="cover-img mb-3 mt-3 current-cover" />
-    <img id="nextCover" loading="lazy" class="cover-img side-cover d-none" />
+    <!-- Covers & Main Player -->
+    <div class="cover-container">
+      <img id="prevCover" loading="lazy" class="cover-img side-cover d-none" />
+      <img id="currentCover" loading="lazy" src="https://storage.googleapis.com/my-mp3-storage/cover.png" alt="Cover"
+        class="cover-img mb-3 mt-3 current-cover" />
+      <img id="nextCover" loading="lazy" class="cover-img side-cover d-none" />
+    </div>
+    <div class="current-title" id="currentTitle">Select a song</div>
+    <div class="lyrics-display" id="lyricsDisplay">
+      <div class="lyric-line" id="lyricPrev"></div>
+      <div class="lyric-line lyric-current" id="lyricCurrent"></div>
+      <div class="lyric-line" id="lyricNext"></div>
+    </div>
   </div>
-  <div class="current-title" id="currentTitle">Select a song</div>
-  <div class="lyrics-display" id="lyricsDisplay">
-    <div class="lyric-line" id="lyricPrev"></div>
-    <div class="lyric-line lyric-current" id="lyricCurrent"></div>
-    <div class="lyric-line" id="lyricNext"></div>
-  </div>
-</div>
+
 
 
   <!-- Player Controls -->
@@ -987,8 +1141,8 @@
     const menuOverlay = document.getElementById("menuOverlay");
     const showList = document.getElementById("showList");
     const feedbackBtn = document.getElementById("feedbackBtn");
-const feedbackContainer = document.getElementById("feedbackContainer");
-const feedbackForm = document.getElementById("feedbackForm");
+    const feedbackContainer = document.getElementById("feedbackContainer");
+    const feedbackForm = document.getElementById("feedbackForm");
 
 
     let songs = [];
@@ -1067,7 +1221,8 @@ const feedbackForm = document.getElementById("feedbackForm");
     }
 
 
-    function playSong(index, seekTime = 0) {
+    function playSong(index, seekTime = 0, triggeredBySync = false) {
+
       if (sound) sound.stop();
       currentIndex = index;
       if (shuffle) {
@@ -1103,10 +1258,14 @@ const feedbackForm = document.getElementById("feedbackForm");
           playPauseBtn.innerHTML = '<i class="fas fa-pause"></i>';
           updateProgress();
           updateLyrics();
+
+          if (!triggeredBySync) {
+            broadcastSync();
+          }
         }
       });
 
-      sound.play();
+       sound.play();
       isPlaying = true;
       currentTitle.textContent = songs[index].title;
       currentCover.src = songs[index].cover;
@@ -1114,10 +1273,46 @@ const feedbackForm = document.getElementById("feedbackForm");
 
       // Save only the index
       localStorage.setItem('lastPlayed', JSON.stringify({ index: currentIndex }));
+    
+
+      if ('mediaSession' in navigator) {
+        navigator.mediaSession.metadata = new MediaMetadata({
+          title: songs[index].title,
+          artist: songs[index].artist || "Unknown Artist",
+          album: songs[index].album || "",
+          artwork: [
+            { src: songs[index].cover, sizes: "512x512", type: "image/png" }
+          ]
+        });
+
+        navigator.mediaSession.setActionHandler('play', () => {
+          if (sound) sound.play();
+          isPlaying = true;
+          playPauseBtn.innerHTML = '<i class="fas fa-pause"></i>';
+          updateProgress();
+          broadcastSync();
+        });
+
+        navigator.mediaSession.setActionHandler('pause', () => {
+          if (sound) sound.pause();
+          isPlaying = false;
+          playPauseBtn.innerHTML = '<i class="fas fa-play"></i>';
+        });
+      }
     }
 
+    function broadcastSync() {
+      if (!isSyncing || !socket || socket.readyState !== WebSocket.OPEN) return;
 
-
+      socket.send(JSON.stringify({
+        action: "play",
+        payload: {
+          songIndex: currentIndex,
+          seek: sound.seek(),
+          isPlaying
+        }
+      }));
+    }
 
     function updateSideCovers(index) {
       if (shuffle) {
@@ -1168,9 +1363,6 @@ const feedbackForm = document.getElementById("feedbackForm");
     }
 
 
-
-
-
     function updateLyrics() {
       if (!sound) return;
       const seek = sound.seek() || 0;
@@ -1188,6 +1380,8 @@ const feedbackForm = document.getElementById("feedbackForm");
       if (isPlaying) { sound.pause(); playPauseBtn.innerHTML = '<i class="fas fa-play"></i>'; }
       else { sound.play(); playPauseBtn.innerHTML = '<i class="fas fa-pause"></i>'; }
       isPlaying = !isPlaying;
+      updateProgress();
+      broadcastSync();
     };
     prevBtn.onclick = () => {
       if (shuffle) {
@@ -1554,11 +1748,15 @@ const feedbackForm = document.getElementById("feedbackForm");
 
     // Mouse down starts drag
     progressContainer.addEventListener('mousedown', e => {
-      if (!sound) return;
-      isDragging = true;
-      wasPlaying = sound.playing(); // NEW
-      updateSeek(e);
-    });
+  if (!sound) return;
+  isDragging = true;
+  wasPlaying = sound.playing(); // Capture whether it was playing
+  if (wasPlaying) {
+    sound.pause();
+  }
+  updateSeek(e);
+});
+
 
     // Mouse move updates during drag
     window.addEventListener('mousemove', e => {
@@ -1574,17 +1772,21 @@ const feedbackForm = document.getElementById("feedbackForm");
         // If it was playing before, resume
         if (wasPlaying && !sound.playing()) {
           sound.play();
+          updateProgress();
+          broadcastSync();
         }
       }
     });
 
     // Touch start
     progressContainer.addEventListener('touchstart', e => {
-      if (!sound) return;
-      isDragging = true;
-      wasPlaying = sound.playing(); // NEW
-      updateSeek(e.touches[0]);
-    });
+  if (!sound) return;
+  isDragging = true;
+  wasPlaying = sound.playing();
+  if (wasPlaying) sound.pause();
+  updateSeek(e.touches[0]);
+});
+
 
     // Touch move
     window.addEventListener('touchmove', e => {
@@ -1598,6 +1800,8 @@ const feedbackForm = document.getElementById("feedbackForm");
 
         if (wasPlaying && !sound.playing()) {
           sound.play();
+          updateProgress();
+          broadcastSync();
         }
       }
     });
@@ -1611,6 +1815,7 @@ const feedbackForm = document.getElementById("feedbackForm");
       if (sound) {
         sound.seek(sound.duration() * p);
         updateProgress(); // Immediately update the UI
+        broadcastSync();
 
         // NEW: Restart the animation loop so it keeps updating
         if (sound.playing()) {
@@ -1625,90 +1830,338 @@ const feedbackForm = document.getElementById("feedbackForm");
         }));
       }
     }
-feedbackBtn.addEventListener('click', () => {
-  sideMenu.classList.remove("active");
-  menuOverlay.classList.remove("active");
+    feedbackBtn.addEventListener('click', () => {
+      sideMenu.classList.remove("active");
+      menuOverlay.classList.remove("active");
 
-  // Hide search and cover
-  listContainer.classList.add("hidden");
-  document.querySelector('.cover-container').style.display = 'none';
-  document.getElementById('currentTitle').style.display = 'none';
-  document.querySelector('.lyrics-display').style.display = 'none';
+      // Hide search and cover
+      listContainer.classList.add("hidden");
+      document.querySelector('.cover-container').style.display = 'none';
+      document.getElementById('currentTitle').style.display = 'none';
+      document.querySelector('.lyrics-display').style.display = 'none';
 
-  // Show feedback form
-  feedbackContainer.classList.remove("hidden");
+      // Show feedback form
+      feedbackContainer.classList.remove("hidden");
 
-  // Push a new state so back button works
-  history.pushState({ feedback: true }, '');
-});
-window.addEventListener('popstate', (e) => {
-  if (feedbackContainer && !feedbackContainer.classList.contains('hidden')) {
-    feedbackContainer.classList.add('hidden');
-    document.querySelector('.cover-container').style.display = 'flex';
-    document.getElementById('currentTitle').style.display = 'block';
-    document.querySelector('.lyrics-display').style.display = 'block';
+      // Push a new state so back button works
+      history.pushState({ feedback: true }, '');
+    });
+    window.addEventListener('popstate', (e) => {
+      if (feedbackContainer && !feedbackContainer.classList.contains('hidden')) {
+        feedbackContainer.classList.add('hidden');
+        document.querySelector('.cover-container').style.display = 'flex';
+        document.getElementById('currentTitle').style.display = 'block';
+        document.querySelector('.lyrics-display').style.display = 'block';
+      }
+    });
+    feedbackForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+
+      const name = feedbackForm.elements['name'].value.trim();
+      const message = feedbackForm.elements['message'].value.trim();
+      if (!name || !message) return;
+
+      const text = `💬 New Feedback:\n\n👤 Name: ${name}\n📝 Message: ${message}`;
+
+      fetch(`https://api.telegram.org/bot7613141093:AAF7YEObFDc6FZC4SkGQ4Z4SskWqEa6PcqY/sendMessage`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          chat_id: "1258471902",
+          text
+        })
+      })
+        .then(res => res.json())
+        .then(data => {
+          // ✅ Show toast
+          Toastify({
+            text: "✅ Thanks for your feedback!",
+            duration: 3000,
+            gravity: "top",
+            position: "center",
+            backgroundColor: "linear-gradient(135deg, #6a00ff, #9f00ff)",
+            stopOnFocus: true
+          }).showToast();
+
+          // ✅ Trigger confetti
+          confetti({
+            particleCount: 200,
+            spread: 90,
+            origin: { y: 0.6 }
+          });
+
+          feedbackForm.reset();
+
+          setTimeout(() => {
+            history.back();
+          }, 1500);
+
+        })
+        .catch(err => {
+          console.error(err);
+          Toastify({
+            text: "❌ Error sending feedback. Please try again.",
+            duration: 3000,
+            gravity: "top",
+            position: "center",
+            backgroundColor: "linear-gradient(135deg, #ff4e50, #f9d423)",
+            stopOnFocus: true
+          }).showToast();
+        });
+    });
+  </script>
+  <script> // wss://mp3-sync-server.onrender.com
+    let socket;
+    let isSyncing = false;
+    let pendingRoom = null;
+
+    // When connection established, show badge
+    function showConnectedBadge(roomCode) {
+      connectedUserSpan.textContent = roomCode;
+      partnerConnectedBadge.classList.remove("hidden");
+    }
+
+    // Start session and register room
+    function startSyncSession() {
+  const myCode = Math.random().toString(36).substring(2, 7).toUpperCase();
+  document.getElementById("myRoomCode").textContent = myCode;
+
+  // Show the loading overlay BEFORE connecting
+  document.getElementById("syncLoadingOverlay").classList.remove("hidden");
+
+      socket = new WebSocket("wss://mp3-sync-server.onrender.com");
+
+      socket.addEventListener("close", () => {
+        console.log("❌ Sync connection closed.");
+        shuffleBtn.disabled = false;
+        repeatBtn.disabled = false;
+        isSyncing = false;
+        document.getElementById("partnerConnectedBadge").classList.add("hidden");
+        // Ensure loading overlay hidden if closed
+        document.getElementById("syncLoadingOverlay").classList.add("hidden");
+       // Toastify({
+            //text: "Error connecting to server Try again later.",
+           // duration: 4000,
+           // gravity: "bottom",
+           // backgroundColor: "#FF514F"
+          //}).showToast();
+      });
+
+
+      socket.addEventListener("open", () => {
+        console.log("✅ Connected to sync server.");
+        socket.send(JSON.stringify({
+          action: "register",
+          room: myCode
+        }));
+
+        // Hide the loading overlay and show the partner overlay
+        document.getElementById("syncLoadingOverlay").classList.add("hidden");
+        partnerOverlay.classList.remove("hidden");
+      });
+
+      socket.addEventListener('message', (event) => {
+        const msg = JSON.parse(event.data);
+        console.log("📨 Message received:", msg);
+
+        if (msg.action === "invite") {
+          console.log(`✅ Auto-accepting invite from ${msg.from}`);
+          socket.send(JSON.stringify({
+            action: "accept",
+            room: msg.from
+          }));
+          isSyncing = true;
+          shuffleBtn.disabled = true;
+          repeatBtn.disabled = true;
+
+          // Hide the LWP overlay
+          document.getElementById("partnerOverlay").classList.add("hidden");
+
+          // Show floating badge
+          showConnectedBadge(msg.from);
+        }
+        if (msg.action === "accept") {
+          isSyncing = true;
+          console.log("✅ Connection accepted, hiding overlay and showing badge");
+          partnerOverlay.classList.add("hidden");
+          showConnectedBadge(msg.room);
+          setSyncMode(true);
+
+        }
+        socket.addEventListener("error", () => {
+          console.error("❌ Error connecting.");
+          document.getElementById("syncLoadingOverlay").classList.add("hidden");
+          Toastify({
+            text: "Error connecting to server.",
+            duration: 4000,
+            gravity: "bottom",
+            backgroundColor: "#FF514F"
+          }).showToast();
+        });
+        if (msg.action === "peer_disconnected") {
+          console.log("🔔 Partner disconnected.");
+          isSyncing = false;
+          
+
+          // Hide badge
+          document.getElementById("partnerConnectedBadge").classList.add("hidden");
+          setSyncMode(false);
+          shuffleBtn.disabled = false;
+          repeatBtn.disabled = false;
+
+          // Optionally show toast
+          Toastify({
+            text: "Your partner disconnected.",
+            duration: 3000,
+            gravity: "bottom",
+            position: "center",
+            backgroundColor: "#8A3FC9",
+          }).showToast();
+        }
+
+
+if (msg.action === "play") {
+  const { songIndex, seek, isPlaying: shouldPlay } = msg.payload;
+
+  console.log("📨 Message received: play", msg.payload);
+
+  if (currentIndex !== songIndex) {
+    // Different song: load it fresh
+    playSong(songIndex, seek, true);
+    if (!shouldPlay) {
+      setTimeout(() => {
+        if (sound) {
+          sound.pause();
+          isPlaying = false;
+          playPauseBtn.innerHTML = '<i class="fas fa-play"></i>';
+        }
+      }, 500);
+    }
+  } else {
+    // Same song
+    if (sound) {
+      sound.pause();   // Always pause first to ensure stop
+      sound.seek(seek);
+
+      if (shouldPlay) {
+        sound.play();
+        isPlaying = true;
+        playPauseBtn.innerHTML = '<i class="fas fa-pause"></i>';
+        updateProgress();
+      } else {
+        isPlaying = false;
+        playPauseBtn.innerHTML = '<i class="fas fa-play"></i>';
+      }
+    }
   }
-});
-feedbackForm.addEventListener('submit', (e) => {
-  e.preventDefault();
+}
 
-  const name = feedbackForm.elements['name'].value.trim();
-  const message = feedbackForm.elements['message'].value.trim();
-  if (!name || !message) return;
 
-  const text = `💬 New Feedback:\n\n👤 Name: ${name}\n📝 Message: ${message}`;
 
-  fetch(`https://api.telegram.org/bot7613141093:AAF7YEObFDc6FZC4SkGQ4Z4SskWqEa6PcqY/sendMessage`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-      chat_id: "1258471902",
-      text
-    })
-  })
-  .then(res => res.json())
-  .then(data => {
-    // ✅ Show toast
-    Toastify({
-      text: "✅ Thanks for your feedback!",
-      duration: 3000,
-      gravity: "top",
-      position: "center",
-      backgroundColor: "linear-gradient(135deg, #6a00ff, #9f00ff)",
-      stopOnFocus: true
-    }).showToast();
 
-    // ✅ Trigger confetti
-    confetti({
-      particleCount: 200,
-      spread: 90,
-      origin: { y: 0.6 }
+      });
+
+
+      socket.addEventListener('close', () => {
+        console.log("❌ Sync connection closed");
+        isSyncing = false;
+      });
+    }
+
+    // When user clicks Connect
+    document.getElementById("connectPartnerBtn").addEventListener("click", () => {
+      const targetRoom = document.getElementById("partnerRoomInput").value.trim();
+      if (targetRoom && socket && socket.readyState === WebSocket.OPEN) {
+        console.log("➡️ Sending connection request to:", targetRoom);
+        socket.send(JSON.stringify({
+          action: "request_connect",
+          target: targetRoom
+        }));
+      } else {
+        console.warn("🚫 WebSocket not ready or room empty");
+      }
     });
 
-    feedbackForm.reset();
 
-    setTimeout(() => {
-      history.back();
-    }, 1500);
+    // Accept incoming request
 
-  })
-  .catch(err => {
-    console.error(err);
+
+    // ✅ Define the function here:
+    function showConnectedBadge(roomCode) {
+      const badge = document.getElementById("partnerConnectedBadge");
+      const span = document.getElementById("connectedUser");
+      badge.classList.remove("hidden");
+      span.textContent = roomCode;
+    }
+
+    function setSyncMode(active) {
+      if (active) {
+        shuffle = false;
+        repeat = false;
+        shuffleBtn.classList.remove("btn-active");
+        repeatBtn.classList.remove("btn-active");
+        shuffleBtn.disabled = true;
+        repeatBtn.disabled = true;
+      } else {
+        shuffleBtn.disabled = false;
+        repeatBtn.disabled = false;
+      }
+    }
+
+
+    // Floating badge elements
+    window.addEventListener("DOMContentLoaded", () => {
+      const partnerOverlay = document.getElementById("partnerOverlay");
+      const closePartnerOverlay = document.getElementById("closePartnerOverlay");
+      const partnerConnectedBadge = document.getElementById("partnerConnectedBadge");
+      const connectedUserSpan = document.getElementById("connectedUser");
+
+      document.getElementById("listenWithPartnerBtn").addEventListener("click", () => {
+  if (isSyncing) {
     Toastify({
-      text: "❌ Error sending feedback. Please try again.",
+      text: "You are already connected to a partner.",
       duration: 3000,
-      gravity: "top",
+      gravity: "bottom",
       position: "center",
-      backgroundColor: "linear-gradient(135deg, #ff4e50, #f9d423)",
-      stopOnFocus: true
+      backgroundColor: "#8A3FC9",
     }).showToast();
-  });
+    return;
+  }
+  startSyncSession();
 });
 
 
+      closePartnerOverlay.addEventListener("click", () => {
+        partnerOverlay.classList.add("hidden");
+      });
+    });
+
+
+    document.getElementById("disconnectBtn").addEventListener("click", () => {
+      if (socket && socket.readyState === WebSocket.OPEN) {
+        socket.close(); // Close the connection
+      }
+
+      // Reset UI and flags
+      isSyncing = false;
+      document.getElementById("partnerConnectedBadge").classList.add("hidden");
+      partnerOverlay.classList.add("hidden");
+
+      Toastify({
+        text: "Disconnected from partner.",
+        duration: 3000,
+        gravity: "bottom",
+        position: "center",
+        backgroundColor: "#8A3FC9",
+      }).showToast();
+    });
 
 
   </script>
+
+
+
+
   <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
