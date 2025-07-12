@@ -1290,8 +1290,7 @@
           if (sound) sound.play();
           isPlaying = true;
           playPauseBtn.innerHTML = '<i class="fas fa-pause"></i>';
-          //startProgressUpdater(); // Use interval-based updater
-          updateProgress();
+          startProgressUpdater(); // Use interval-based updater
           broadcastSync();
         });
 
@@ -1299,8 +1298,7 @@
           if (sound) sound.pause();
           isPlaying = false;
           playPauseBtn.innerHTML = '<i class="fas fa-play"></i>';
-          //stopProgressUpdater(); // Stop updater on pause
-         // updateProgress();
+          stopProgressUpdater(); // Stop updater on pause
         });
 
         navigator.mediaSession.setActionHandler('previoustrack', () => {
