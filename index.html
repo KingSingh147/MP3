@@ -13,6 +13,15 @@
   <link rel="icon" href="https://storage.googleapis.com/my-mp3-storage/icon.jpeg">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.2.3/howler.min.js"></script>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css" />
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-D2ERS5PY19"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+
+    gtag('config', 'G-D2ERS5PY19');
+  </script>
   <style>
     body {
       background: linear-gradient(135deg, #1e1b33, #332c61, #6d2c91, #8a3fc9);
@@ -980,6 +989,9 @@
     <div style="color:white;font-size:1.1rem;">Connecting to partner server...</div>
   </div>
 
+
+
+
   <div id="partnerOverlay" class="hidden">
     <div class="p-4 bg-dark text-white rounded" style="max-width: 400px; margin: auto;">
       <h5 class="mb-3">Listen with Partner</h5>
@@ -994,6 +1006,29 @@
       <button id="connectPartnerBtn" class="btn btn-primary w-100">Connect</button>
       <button id="closePartnerOverlay" class="btn btn-secondary w-100 mt-2">Cancel</button>
     </div>
+  </div>
+
+  <div id="waitingForAcceptOverlay" class="hidden" style="
+  position: fixed;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  background: rgba(0,0,0,0.9);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  flex-direction: column;
+">
+    <div class="play-spinner" style="margin-bottom: 1rem;">
+      <div class="r1"></div>
+      <div class="r2"></div>
+      <div class="r3"></div>
+      <div class="r4"></div>
+      <div class="r5"></div>
+    </div>
+    <div style="color:white;font-size:1.1rem;">Waiting for partner to accept...</div>
   </div>
 
   <!-- Navbar -->
@@ -1388,22 +1423,35 @@
       const seek = sound.seek() || 0;
       const duration = sound.duration();
       progress.style.width = `${(seek / duration) * 100}%`;
+
       const fmt = s => `${Math.floor(s / 60)}:${('0' + Math.floor(s % 60)).slice(-2)}`;
       document.getElementById('timeDisplay').textContent = `${fmt(seek)} / ${fmt(duration)}`;
-
-      if (sound.playing()) {
-        requestAnimationFrame(updateProgress);
-      }
     }
+
 
     function startProgressUpdater() {
       if (progressInterval) clearInterval(progressInterval);
+
       progressInterval = setInterval(() => {
         if (sound && sound.playing()) {
           updateProgress();
+
+          // 🔁 Update Media Session progress (for notification bar)
+          if ('mediaSession' in navigator && 'setPositionState' in navigator.mediaSession) {
+            try {
+              navigator.mediaSession.setPositionState({
+                duration: sound.duration(),
+                playbackRate: 1.0,
+                position: sound.seek() || 0
+              });
+            } catch (err) {
+              console.warn("Position state not set:", err);
+            }
+          }
         }
-      }, 500); // updates every 500ms
+      }, 1000); // every second is enough
     }
+
 
     function stopProgressUpdater() {
       if (progressInterval) {
@@ -1972,6 +2020,10 @@
     let socket;
     let isSyncing = false;
     let pendingRoom = null;
+    let inviteTimeout = null;
+    let myRoomCode = null;
+
+
 
     // When connection established, show badge
     function showConnectedBadge(roomCode) {
@@ -1982,6 +2034,7 @@
     // Start session and register room
     function startSyncSession() {
       const myCode = Math.random().toString(36).substring(2, 7).toUpperCase();
+      myRoomCode = myCode;
       document.getElementById("myRoomCode").textContent = myCode;
 
       // Show the loading overlay BEFORE connecting
@@ -1997,12 +2050,11 @@
         document.getElementById("partnerConnectedBadge").classList.add("hidden");
         // Ensure loading overlay hidden if closed
         document.getElementById("syncLoadingOverlay").classList.add("hidden");
-        // Toastify({
-        //text: "Error connecting to server Try again later.",
-        // duration: 4000,
-        // gravity: "bottom",
-        // backgroundColor: "#FF514F"
-        //}).showToast();
+        if (inviteTimeout) {
+          clearTimeout(inviteTimeout);
+          inviteTimeout = null;
+        }
+
       });
 
 
@@ -2013,10 +2065,12 @@
           room: myCode
         }));
 
-        // Hide the loading overlay and show the partner overlay
+        // Hide loading, show partner overlay
         document.getElementById("syncLoadingOverlay").classList.add("hidden");
         partnerOverlay.classList.remove("hidden");
+        history.pushState({ overlay: "partner" }, "");
       });
+
 
       socket.addEventListener('message', (event) => {
         const msg = JSON.parse(event.data);
@@ -2039,13 +2093,20 @@
           showConnectedBadge(msg.from);
         }
         if (msg.action === "accept") {
+          // Clear the invite timeout if it was running
+          if (inviteTimeout) {
+            clearTimeout(inviteTimeout);
+            inviteTimeout = null;
+          }
+
           isSyncing = true;
           console.log("✅ Connection accepted, hiding overlay and showing badge");
+          document.getElementById("waitingForAcceptOverlay").classList.add("hidden");
           partnerOverlay.classList.add("hidden");
           showConnectedBadge(msg.room);
           setSyncMode(true);
-
         }
+
         socket.addEventListener("error", () => {
           console.error("❌ Error connecting.");
           document.getElementById("syncLoadingOverlay").classList.add("hidden");
@@ -2121,24 +2182,77 @@
 
 
       socket.addEventListener('close', () => {
-        console.log("❌ Sync connection closed");
+        console.log("user disconnected");
         isSyncing = false;
       });
     }
 
     // When user clicks Connect
     document.getElementById("connectPartnerBtn").addEventListener("click", () => {
+      document.getElementById("waitingForAcceptOverlay").classList.remove("hidden");
+
       const targetRoom = document.getElementById("partnerRoomInput").value.trim();
-      if (targetRoom && socket && socket.readyState === WebSocket.OPEN) {
+
+      if (!targetRoom) {
+        Toastify({
+          text: "Please enter a room code.",
+          duration: 3000,
+          gravity: "bottom",
+          position: "center",
+          backgroundColor: "#E74C3C",
+        }).showToast();
+        return;
+      }
+
+      // 🚫 Check if user entered their own code
+      if (myRoomCode && targetRoom.toUpperCase() === myRoomCode) {
+        Toastify({
+          text: "You cannot connect to your own code.",
+          duration: 3000,
+          gravity: "bottom",
+          position: "center",
+          backgroundColor: "#E67E22",
+        }).showToast();
+        return;
+      }
+
+      if (socket && socket.readyState === WebSocket.OPEN) {
         console.log("➡️ Sending connection request to:", targetRoom);
+        partnerOverlay.classList.add("hidden");
         socket.send(JSON.stringify({
           action: "request_connect",
           target: targetRoom
         }));
+
+        // Start 10-second timeout
+        if (inviteTimeout) clearTimeout(inviteTimeout);
+
+        inviteTimeout = setTimeout(() => {
+          console.log("No response. Try again later")
+          document.getElementById("waitingForAcceptOverlay").classList.add("hidden");
+          partnerOverlay.classList.remove("hidden");
+          Toastify({
+            text: "No response. Try again later.",
+            duration: 4000,
+            gravity: "bottom",
+            position: "center",
+            backgroundColor: "#E74C3C",
+          }).showToast();
+          inviteTimeout = null;
+        }, 10000);
       } else {
+        partnerOverlay.classList.remove("hidden");
+        Toastify({
+          text: "Connection not ready. Try again.",
+          duration: 3000,
+          gravity: "bottom",
+          position: "center",
+          backgroundColor: "#E74C3C",
+        }).showToast();
         console.warn("🚫 WebSocket not ready or room empty");
       }
     });
+
 
 
     // Accept incoming request
@@ -2190,10 +2304,6 @@
         // Hide side menu and overlay
         sideMenu.classList.remove("active");
         menuOverlay.classList.remove("active");
-
-        // Show the LWP overlay
-        partnerOverlay.classList.remove("hidden");
-        history.pushState({ overlay: "partner" }, "");
 
         // Start WebSocket session
         startSyncSession();
