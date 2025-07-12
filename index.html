@@ -1187,6 +1187,7 @@
     let progressInterval = null;
     let isPlaying = false;
     let lastLoadTime = 0;
+    let songStartTime = null;
     let shakeEnabled = localStorage.getItem('shakeEnabled') === 'true';
 
 
@@ -1257,6 +1258,15 @@
 
 
     function playSong(index, seekTime = 0, triggeredBySync = false) {
+      if (songStartTime) {
+        const elapsedSeconds = Math.floor((Date.now() - songStartTime) / 1000);
+        gtag('event', 'song_listened', {
+          song_title: currentSong.title || 'Unknown',
+          song_artist: currentSong.artist || 'Unknown',
+          duration_seconds: elapsedSeconds
+        });
+        songStartTime = null;
+      }
       if (sound)
         sound.stop();
       stopProgressUpdater();
@@ -1280,6 +1290,17 @@
         src: [songs[index].file],
         html5: true,
         onend: () => {
+          // ⬇️ Log listening time on end
+          if (songStartTime) {
+            const elapsedSeconds = Math.floor((Date.now() - songStartTime) / 1000);
+            gtag('event', 'song_listened', {
+              song_title: currentSong.title || 'Unknown',
+              song_artist: currentSong.artist || 'Unknown',
+              duration_seconds: elapsedSeconds
+            });
+            songStartTime = null;
+          }
+
           if (repeat) {
             playSong(currentIndex);
           } else if (shuffle) {
@@ -1289,8 +1310,14 @@
             playSong(nextIndex);
           }
         },
+
         onplay: () => {
-          // ✅ When playback starts, replace spinner with pause icon
+          songStartTime = Date.now();
+          gtag('event', 'song_play', {
+            song_title: currentSong.title || 'Unknown',
+            song_artist: currentSong.artist || 'Unknown'
+          });
+
           playPauseBtn.innerHTML = '<i class="fas fa-pause"></i>';
           startProgressUpdater();
           updateLyrics();
@@ -1298,10 +1325,19 @@
           if (!triggeredBySync) {
             broadcastSync();
           }
-        }
+        },
+
       });
 
       sound.play();
+
+      songStartTime = Date.now();
+
+      gtag('event', 'song_play', {
+        song_title: currentSong.title || 'Unknown',
+        song_artist: currentSong.artist || 'Unknown'
+      });
+
       isPlaying = true;
       currentTitle.textContent = songs[index].title;
       currentCover.src = songs[index].cover;
@@ -1449,7 +1485,7 @@
             }
           }
         }
-      }, 1000); // every second is enough
+      }, 500); // every second is enough
     }
 
 
@@ -1475,8 +1511,18 @@
     }
 
     playPauseBtn.onclick = () => {
+
       if (!sound) return;
       if (isPlaying) {
+        if (songStartTime) {
+          const elapsedSeconds = Math.floor((Date.now() - songStartTime) / 1000);
+          gtag('event', 'song_listened', {
+            song_title: currentSong.title || 'Unknown',
+            song_artist: currentSong.artist || 'Unknown',
+            duration_seconds: elapsedSeconds
+          });
+          songStartTime = null;
+        }
         sound.pause();
         playPauseBtn.innerHTML = '<i class="fas fa-play"></i>';
         stopProgressUpdater();  // ⬅️ Stop updating when paused
@@ -1490,6 +1536,16 @@
       broadcastSync();
     };
     prevBtn.onclick = () => {
+      if (songStartTime) {
+        const elapsedSeconds = Math.floor((Date.now() - songStartTime) / 1000);
+        gtag('event', 'song_listened', {
+          song_title: currentSong.title || 'Unknown',
+          song_artist: currentSong.artist || 'Unknown',
+          duration_seconds: elapsedSeconds
+        });
+        songStartTime = null;
+      }
+
       if (shuffle) {
         shufflePosition = (shufflePosition - 1 + shuffleOrder.length) % shuffleOrder.length;
         playSong(shuffleOrder[shufflePosition]);
@@ -1498,6 +1554,7 @@
         playSong(prevIndex);
       }
     };
+
 
 
 
@@ -1526,6 +1583,13 @@
       }
       shuffleBtn.blur();
     };
+
+
+    window.addEventListener('appinstalled', () => {
+      console.log("✅ PWA installed");
+      gtag('event', 'pwa_installed');
+    });
+
 
 
 
