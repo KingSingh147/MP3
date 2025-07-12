@@ -1149,6 +1149,7 @@
     let shuffle = false;
     let repeat = false;
     let sound = null;
+    let progressInterval = null;
     let isPlaying = false;
     let lastLoadTime = 0;
     let shakeEnabled = localStorage.getItem('shakeEnabled') === 'true';
@@ -1221,8 +1222,9 @@
 
 
     function playSong(index, seekTime = 0, triggeredBySync = false) {
-
-      if (sound) sound.stop();
+      if (sound)
+        sound.stop();
+      stopProgressUpdater();
       currentIndex = index;
       if (shuffle) {
         shufflePosition = shuffleOrder.indexOf(currentIndex);
@@ -1255,7 +1257,7 @@
         onplay: () => {
           // ✅ When playback starts, replace spinner with pause icon
           playPauseBtn.innerHTML = '<i class="fas fa-pause"></i>';
-          updateProgress();
+          startProgressUpdater();
           updateLyrics();
 
           if (!triggeredBySync) {
@@ -1282,12 +1284,13 @@
           artwork: [
             { src: songs[index].cover, sizes: "512x512", type: "image/png" }
           ]
-        });
+        });  //updateProgress();
 
         navigator.mediaSession.setActionHandler('play', () => {
           if (sound) sound.play();
           isPlaying = true;
           playPauseBtn.innerHTML = '<i class="fas fa-pause"></i>';
+          //startProgressUpdater(); // Use interval-based updater
           updateProgress();
           broadcastSync();
         });
@@ -1296,6 +1299,8 @@
           if (sound) sound.pause();
           isPlaying = false;
           playPauseBtn.innerHTML = '<i class="fas fa-play"></i>';
+          //stopProgressUpdater(); // Stop updater on pause
+         // updateProgress();
         });
 
         navigator.mediaSession.setActionHandler('previoustrack', () => {
@@ -1309,6 +1314,17 @@
         });
 
         navigator.mediaSession.setActionHandler('nexttrack', () => {
+          if (shuffle) {
+            shufflePosition = (shufflePosition + 1) % shuffleOrder.length;
+            playSong(shuffleOrder[shufflePosition]);
+          } else {
+            const nextIndex = (currentIndex + 1) % songs.length;
+            playSong(nextIndex);
+          }
+        });
+
+        // Some headsets map double-click to "seekforward"
+        navigator.mediaSession.setActionHandler('seekforward', () => {
           if (shuffle) {
             shufflePosition = (shufflePosition + 1) % shuffleOrder.length;
             playSong(shuffleOrder[shufflePosition]);
@@ -1382,6 +1398,23 @@
       }
     }
 
+    function startProgressUpdater() {
+      if (progressInterval) clearInterval(progressInterval);
+      progressInterval = setInterval(() => {
+        if (sound && sound.playing()) {
+          updateProgress();
+        }
+      }, 500); // updates every 500ms
+    }
+
+    function stopProgressUpdater() {
+      if (progressInterval) {
+        clearInterval(progressInterval);
+        progressInterval = null;
+      }
+    }
+
+
 
     function updateLyrics() {
       if (!sound) return;
@@ -1397,8 +1430,15 @@
 
     playPauseBtn.onclick = () => {
       if (!sound) return;
-      if (isPlaying) { sound.pause(); playPauseBtn.innerHTML = '<i class="fas fa-play"></i>'; }
-      else { sound.play(); playPauseBtn.innerHTML = '<i class="fas fa-pause"></i>'; }
+      if (isPlaying) {
+        sound.pause();
+        playPauseBtn.innerHTML = '<i class="fas fa-play"></i>';
+        stopProgressUpdater();  // ⬅️ Stop updating when paused
+      } else {
+        sound.play();
+        playPauseBtn.innerHTML = '<i class="fas fa-pause"></i>';
+        startProgressUpdater(); // ⬅️ Start updating when playing
+      }
       isPlaying = !isPlaying;
       updateProgress();
       broadcastSync();
@@ -2135,7 +2175,7 @@
       const closePartnerOverlay = document.getElementById("closePartnerOverlay");
       const partnerConnectedBadge = document.getElementById("partnerConnectedBadge");
       const connectedUserSpan = document.getElementById("connectedUser");
-      
+
       document.getElementById("listenWithPartnerBtn").addEventListener("click", () => {
         // If already connected, show toast and exit
         if (isSyncing) {
@@ -2155,6 +2195,7 @@
 
         // Show the LWP overlay
         partnerOverlay.classList.remove("hidden");
+        history.pushState({ overlay: "partner" }, "");
 
         // Start WebSocket session
         startSyncSession();
@@ -2164,6 +2205,25 @@
         partnerOverlay.classList.add("hidden");
       });
     });
+
+    window.addEventListener('popstate', (event) => {
+      // Close overlays if any are open
+      if (!event.state || !event.state.overlay) {
+        // No overlay state, hide all overlays
+        document.getElementById('partnerOverlay').classList.add('hidden');
+        document.getElementById('syncLoadingOverlay').classList.add('hidden');
+        return;
+      }
+
+      // If needed, you can handle specific overlays here
+      if (event.state.overlay === 'partner') {
+        document.getElementById('partnerOverlay').classList.add('hidden');
+      }
+      if (event.state.overlay === 'sync') {
+        document.getElementById('syncLoadingOverlay').classList.add('hidden');
+      }
+    });
+
 
 
     document.getElementById("disconnectBtn").addEventListener("click", () => {
@@ -2184,6 +2244,12 @@
         backgroundColor: "#8A3FC9",
       }).showToast();
     });
+
+    function showOverlayWithHistory(overlayId, stateName) {
+      const overlay = document.getElementById(overlayId);
+      overlay.classList.remove('hidden');
+      history.pushState({ overlay: stateName }, '');
+    }
 
 
   </script>
