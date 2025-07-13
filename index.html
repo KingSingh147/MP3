@@ -14,8 +14,10 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.2.3/howler.min.js"></script>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css" />
   <link rel="manifest" href="manifest.json">
-  <meta name="description" content="Suno MP3 Player lets you stream and enjoy your favorite songs with a clean interface, offline playback, and real-time syncing with friends.">
-  <meta name="keywords" content="Suno, MP3 player, music player, audio streaming, offline music, playlist, neon music app, PWA music player, listen with friends, HTML5 audio">
+  <meta name="description"
+    content="Suno MP3 Player lets you stream and enjoy your favorite songs with a clean interface, offline playback, and real-time syncing with friends.">
+  <meta name="keywords"
+    content="Suno, MP3 player, music player, audio streaming, offline music, playlist, neon music app, PWA music player, listen with friends, HTML5 audio">
 
   <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-D2ERS5PY19"></script>
@@ -1299,10 +1301,23 @@
           startProgressUpdater();
           updateLyrics();
 
+          if ('mediaSession' in navigator && 'setPositionState' in navigator.mediaSession) {
+            try {
+              navigator.mediaSession.setPositionState({
+                duration: sound.duration(),
+                playbackRate: 1.0,
+                position: 0
+              });
+            } catch (err) {
+              console.warn("Position state init failed:", err);
+            }
+          }
+
           if (!triggeredBySync) {
             broadcastSync();
           }
-        }
+        },
+
       });
 
       sound.play();
@@ -2198,7 +2213,7 @@
       const targetRoom = document.getElementById("partnerRoomInput").value.trim();
 
       if (!targetRoom) {
-      document.getElementById("waitingForAcceptOverlay").classList.add("hidden");
+        document.getElementById("waitingForAcceptOverlay").classList.add("hidden");
         Toastify({
           text: "Please enter a room code.",
           duration: 3000,
@@ -2211,7 +2226,7 @@
 
       // 🚫 Check if user entered their own code
       if (myRoomCode && targetRoom.toUpperCase() === myRoomCode) {
-      document.getElementById("waitingForAcceptOverlay").classList.add("hidden");
+        document.getElementById("waitingForAcceptOverlay").classList.add("hidden");
         Toastify({
           text: "You cannot connect to your own code.",
           duration: 3000,
@@ -2369,16 +2384,16 @@
 
   </script>
   <script>
-  // Make sure gtag is defined
-  window.addEventListener('appinstalled', (event) => {
-    console.log('✅ App installed!');
-    gtag('event', 'pwa_install', {
-      event_category: 'PWA',
-      event_label: 'User installed the PWA',
-      value: 1
+    // Make sure gtag is defined
+    window.addEventListener('appinstalled', (event) => {
+      console.log('✅ App installed!');
+      gtag('event', 'pwa_install', {
+        event_category: 'PWA',
+        event_label: 'User installed the PWA',
+        value: 1
+      });
     });
-  });
-</script>
+  </script>
 
 
 
