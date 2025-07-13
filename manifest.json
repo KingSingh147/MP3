@@ -15,12 +15,12 @@
   "categories": ["music", "entertainment", "audio"],
   "icons": [
     {
-      "src": "icons/icon-192.png",
+      "src": "https://storage.googleapis.com/my-mp3-storage/icon2%20192x192.jpeg",
       "sizes": "192x192",
       "type": "image/png"
     },
     {
-      "src": "icons/icon-512.png",
+      "src": "https://storage.googleapis.com/my-mp3-storage/icon2%20(1).jpeg",
       "sizes": "512x512",
       "type": "image/png"
     }
