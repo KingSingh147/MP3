@@ -1,0 +1,28 @@
+{
+  "name": "Suno MP3 Player",
+  "short_name": "Suno",
+  "description": "A modern MP3 player that lets you stream and enjoy your favorite songs with a clean, fast, and offline-capable experience.",
+  "start_url": "/MP3/",
+  "id": "/MP3/?source=pwa",
+  "scope": "/MP3/",
+  "display": "standalone",
+  "display_override": ["standalone", "minimal-ui"],
+  "orientation": "portrait",
+  "background_color": "#000000",
+  "theme_color": "#8A3FC9",
+  "lang": "en",
+  "dir": "ltr",
+  "categories": ["music", "entertainment", "audio"],
+  "icons": [
+    {
+      "src": "icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
