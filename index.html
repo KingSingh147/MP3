@@ -7,10 +7,10 @@
   <meta name="theme-color" content="#8A3FC9">
   <meta name="msapplication-navbutton-color" content="#8A3FC9">
 
-  <title>MP3 Player</title>
+  <title>SUNO</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
-  <link rel="icon" href="https://storage.googleapis.com/my-mp3-storage/icon.jpeg">
+  <link rel="icon" href="https://storage.googleapis.com/my-mp3-storage/icon2.jpeg">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.2.3/howler.min.js"></script>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css" />
   <!-- Google tag (gtag.js) -->
@@ -1037,7 +1037,7 @@
       <button class="btn text-white me-2" id="menuToggle">
         <i class="fas fa-bars"></i>
       </button>
-      <span class="navbar-brand fw-bold mb-0">MP3 Player</span>
+      <span class="navbar-brand fw-bold mb-0">SUNO</span>
     </div>
     <button class="btn" id="searchToggle">
       <i class="fa-solid fa-magnifying-glass"></i>
@@ -2364,6 +2364,17 @@
 
 
   </script>
+  <script>
+  // Make sure gtag is defined
+  window.addEventListener('appinstalled', (event) => {
+    console.log('✅ App installed!');
+    gtag('event', 'pwa_install', {
+      event_category: 'PWA',
+      event_label: 'User installed the PWA',
+      value: 1
+    });
+  });
+</script>
 
 
 
