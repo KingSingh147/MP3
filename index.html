@@ -1187,7 +1187,6 @@
     let progressInterval = null;
     let isPlaying = false;
     let lastLoadTime = 0;
-    let songStartTime = null;
     let shakeEnabled = localStorage.getItem('shakeEnabled') === 'true';
 
 
@@ -1258,19 +1257,10 @@
 
 
     function playSong(index, seekTime = 0, triggeredBySync = false) {
+      if (sound)
+        sound.stop();
+      stopProgressUpdater();
       currentIndex = index;
-      const currentSong = songs[index];
-      if (songStartTime) {
-        const elapsedSeconds = Math.floor((Date.now() - songStartTime) / 1000);
-        gtag('event', 'song_listened', {
-          song_title: currentSong.title || 'Unknown',
-          song_artist: currentSong.artist || 'Unknown',
-          duration_seconds: elapsedSeconds
-        });
-        songStartTime = null;
-      }
-      if (sound) sound.unload();
-      
       if (shuffle) {
         shufflePosition = shuffleOrder.indexOf(currentIndex);
       }
@@ -1290,17 +1280,6 @@
         src: [songs[index].file],
         html5: true,
         onend: () => {
-          // ⬇️ Log listening time on end
-          if (songStartTime) {
-            const elapsedSeconds = Math.floor((Date.now() - songStartTime) / 1000);
-            gtag('event', 'song_listened', {
-              song_title: currentSong.title || 'Unknown',
-              song_artist: currentSong.artist || 'Unknown',
-              duration_seconds: elapsedSeconds
-            });
-            songStartTime = null;
-          }
-
           if (repeat) {
             playSong(currentIndex);
           } else if (shuffle) {
@@ -1310,14 +1289,8 @@
             playSong(nextIndex);
           }
         },
-
         onplay: () => {
-          songStartTime = Date.now();
-          gtag('event', 'song_play', {
-            song_title: currentSong.title || 'Unknown',
-            song_artist: currentSong.artist || 'Unknown'
-          });
-
+          // ✅ When playback starts, replace spinner with pause icon
           playPauseBtn.innerHTML = '<i class="fas fa-pause"></i>';
           startProgressUpdater();
           updateLyrics();
@@ -1325,14 +1298,10 @@
           if (!triggeredBySync) {
             broadcastSync();
           }
-        },
-
+        }
       });
 
       sound.play();
-
-      songStartTime = Date.now();
-
       isPlaying = true;
       currentTitle.textContent = songs[index].title;
       currentCover.src = songs[index].cover;
@@ -1480,7 +1449,7 @@
             }
           }
         }
-      }, 500); // every second is enough
+      }, 1000); // every second is enough
     }
 
 
@@ -1506,18 +1475,8 @@
     }
 
     playPauseBtn.onclick = () => {
-
       if (!sound) return;
       if (isPlaying) {
-        if (songStartTime) {
-          const elapsedSeconds = Math.floor((Date.now() - songStartTime) / 1000);
-          gtag('event', 'song_listened', {
-            song_title: currentSong.title || 'Unknown',
-            song_artist: currentSong.artist || 'Unknown',
-            duration_seconds: elapsedSeconds
-          });
-          songStartTime = null;
-        }
         sound.pause();
         playPauseBtn.innerHTML = '<i class="fas fa-play"></i>';
         stopProgressUpdater();  // ⬅️ Stop updating when paused
@@ -1531,16 +1490,6 @@
       broadcastSync();
     };
     prevBtn.onclick = () => {
-      if (songStartTime) {
-        const elapsedSeconds = Math.floor((Date.now() - songStartTime) / 1000);
-        gtag('event', 'song_listened', {
-          song_title: currentSong.title || 'Unknown',
-          song_artist: currentSong.artist || 'Unknown',
-          duration_seconds: elapsedSeconds
-        });
-        songStartTime = null;
-      }
-
       if (shuffle) {
         shufflePosition = (shufflePosition - 1 + shuffleOrder.length) % shuffleOrder.length;
         playSong(shuffleOrder[shufflePosition]);
@@ -1549,7 +1498,6 @@
         playSong(prevIndex);
       }
     };
-
 
 
 
@@ -1578,13 +1526,6 @@
       }
       shuffleBtn.blur();
     };
-
-
-    window.addEventListener('appinstalled', () => {
-      console.log("✅ PWA installed");
-      gtag('event', 'pwa_installed');
-    });
-
 
 
 
@@ -1725,18 +1666,18 @@
     });
   </script>
   <script>
-    //const searchOverlay = document.getElementById('searchOverlay');
+    const searchOverlay = document.getElementById('searchOverlay');
 
     // Show search with history push
-    //searchToggle.addEventListener('click', () => {
-    //searchOverlay.classList.remove('hidden');
-    //listContainer.classList.remove('hidden');
-    //document.querySelector('.cover-container').style.display = 'none';
-    //document.getElementById('currentTitle').style.display = 'none';
-    //document.querySelector('.lyrics-display').style.display = 'none';
-    // searchInput.focus();
-    // history.pushState({ search: true }, ''); // Add history entry
-    //});
+    searchToggle.addEventListener('click', () => {
+      searchOverlay.classList.remove('hidden');
+      listContainer.classList.remove('hidden');
+      document.querySelector('.cover-container').style.display = 'none';
+      document.getElementById('currentTitle').style.display = 'none';
+      document.querySelector('.lyrics-display').style.display = 'none';
+      searchInput.focus();
+      history.pushState({ search: true }, ''); // Add history entry
+    });
 
     // Click outside to close (for desktop)
     searchOverlay.addEventListener('click', e => {
@@ -2253,8 +2194,7 @@
       const targetRoom = document.getElementById("partnerRoomInput").value.trim();
 
       if (!targetRoom) {
-        document.getElementById("waitingForAcceptOverlay").classList.add("hidden");
-        console.log("Please enter a room code")
+      document.getElementById("waitingForAcceptOverlay").classList.add("hidden");
         Toastify({
           text: "Please enter a room code.",
           duration: 3000,
@@ -2267,8 +2207,7 @@
 
       // 🚫 Check if user entered their own code
       if (myRoomCode && targetRoom.toUpperCase() === myRoomCode) {
-        document.getElementById("waitingForAcceptOverlay").classList.add("hidden");
-        console.log("You cannot connect to your own code")
+      document.getElementById("waitingForAcceptOverlay").classList.add("hidden");
         Toastify({
           text: "You cannot connect to your own code.",
           duration: 3000,
@@ -2305,7 +2244,6 @@
         }, 10000);
       } else {
         partnerOverlay.classList.remove("hidden");
-        console.log("Connection not ready. Try again")
         document.getElementById("waitingForAcceptOverlay").classList.add("hidden");
         Toastify({
           text: "Connection not ready. Try again.",
